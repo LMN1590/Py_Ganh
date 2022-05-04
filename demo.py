@@ -24,19 +24,17 @@ def move(board2,screen,counter):
     pygame.draw.line(screen,(0,0,0),(400,165+26),(260+26,305),5)
     pygame.draw.line(screen,(0,0,0),(400,445-26),(260+26,305),5)
     pygame.draw.line(screen,(0,0,0),(400,445-26),(540-26,305),5)
-    column=[pygame.Rect(260+(i+1)*52 + i*5,165,5,280) for i in range(4)]
-    row=[pygame.Rect(260,165+(i+1)*52 + i*5,280,5) for i in range(4)]
-    for i in range(4):
-        pygame.draw.rect(screen,(0,0,0),column[i])
-        pygame.draw.rect(screen,(0,0,0),row[i])
+    for i in range(5):
+        pygame.draw.line(screen,(0,0,0),(260+28+56*i,445),(260+28+56*i,165),5)
+        pygame.draw.line(screen,(0,0,0),(260,165+28+56*i),(540,165+28+56*i),5)
     for i in range(5):
         for j in range(5):
             startLeft=j*57 + 260
             startTop=i*57 + 165
             if(board2[i][j]==1):
-                pygame.draw.circle(screen,(200,0,0),(startLeft+26,startTop+26),22)
+                pygame.draw.circle(screen,(200,0,0),(startLeft+26,startTop+26),15)
             elif (board2[i][j]==-1):
-                pygame.draw.circle(screen,(0,0,200),(startLeft+26,startTop+26),22)
+                pygame.draw.circle(screen,(0,0,200),(startLeft+26,startTop+26),15)
     pygame.display.update()
 
 
@@ -70,19 +68,17 @@ def resDisOut(win,res,length,screen):
         pygame.draw.line(screen,(0,0,0),(400,165+26),(260+26,305),5)
         pygame.draw.line(screen,(0,0,0),(400,445-26),(260+26,305),5)
         pygame.draw.line(screen,(0,0,0),(400,445-26),(540-26,305),5)
-        column=[pygame.Rect(260+(i+1)*52 + i*5,165,5,280) for i in range(4)]
-        row=[pygame.Rect(260,165+(i+1)*52 + i*5,280,5) for i in range(4)]
-        for i in range(4):
-            pygame.draw.rect(screen,(0,0,0),column[i])
-            pygame.draw.rect(screen,(0,0,0),row[i])
+        for i in range(5):
+            pygame.draw.line(screen,(0,0,0),(260+28+56*i,445),(260+28+56*i,165),5)
+            pygame.draw.line(screen,(0,0,0),(260,165+28+56*i),(540,165+28+56*i),5)
         for i in range(5):
                 for j in range(5):
                     startLeft=j*57 + 260
                     startTop=i*57 + 165
                     if(res[counter-1][i][j]==1):
-                        pygame.draw.circle(screen,(200,0,0),(startLeft+26,startTop+26),22)
+                        pygame.draw.circle(screen,(200,0,0),(startLeft+26,startTop+26),15)
                     elif (res[counter-1][i][j]==-1):
-                        pygame.draw.circle(screen,(0,0,200),(startLeft+26,startTop+26),22)
+                        pygame.draw.circle(screen,(0,0,200),(startLeft+26,startTop+26),15)
         if(win==0):
             textRes=font.render("Hòa",True,(220,0,0))
             screen.blit(textRes,(380,460))
