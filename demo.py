@@ -109,7 +109,7 @@ def resDisOut(win,res,length,screen):
         quit=pygame.Rect(622,275,100,50)
         textQuit=font.render("Thoát",True,(0,0,0))
         pygame.draw.rect(screen,(255,222,173),quit)
-        screen.blit(textQuit,(630,283))
+        screen.blit(textQuit,(640,283))
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 running=False
