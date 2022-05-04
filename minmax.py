@@ -1,6 +1,5 @@
 from select import select
-import pygame
-import random
+
 
 def dupTable(base):
     newer=[]

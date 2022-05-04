@@ -1,38 +1,5 @@
 import pygame
 
-def move(board2,screen,counter):
-    screen.fill((131,238,255))
-    
-    #####################
-    #Title
-    title=[pygame.Rect(200,40,400,100),pygame.Rect(210,50,380,80)]
-    pygame.draw.rect(screen,(139,69,19),title[0])
-    pygame.draw.rect(screen,(255,222,173),title[1])
-    fontTitle=pygame.font.Font("./font/Unicode/times.ttf",50)
-    textTitle=fontTitle.render("Bước "+str(counter),True, (0,0,0))
-    screen.blit(textTitle,(320,60))
-    #####################
-
-    #Board
-    board=[pygame.Rect(255,160,290,290),pygame.Rect(260,165,280,280)]
-    pygame.draw.rect(screen,(139,69,19),board[0])
-    pygame.draw.rect(screen,(255,222,173),board[1])
-    column=[pygame.Rect(260+(i+1)*52 + i*5,165,5,280) for i in range(4)]
-    row=[pygame.Rect(260,165+(i+1)*52 + i*5,280,5) for i in range(4)]
-    for i in range(4):
-        pygame.draw.rect(screen,(0,0,0),column[i])
-        pygame.draw.rect(screen,(0,0,0),row[i])
-    for i in range(5):
-        for j in range(5):
-            startLeft=j*57+ 4 + 260
-            startTop=i*57+ 4 + 165
-            if(board2[i][j]==1):
-                sq=pygame.Rect(startLeft,startTop,44,44)
-                pygame.draw.rect(screen,(200,0,0),sq)
-            elif (board2[i][j]==-1):
-                sq=pygame.Rect(startLeft,startTop,44,44)
-                pygame.draw.rect(screen,(0,0,200),sq)
-
 def collision(outer,inner):
     return outer[0]<=inner[0] and outer[0]+40>=inner[0] and outer[1]<=inner[1] and outer[1]+40>=inner[1]
 

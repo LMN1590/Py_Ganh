@@ -18,6 +18,12 @@ def move(board2,screen,counter):
     board=[pygame.Rect(255,160,290,290),pygame.Rect(260,165,280,280)]
     pygame.draw.rect(screen,(139,69,19),board[0])
     pygame.draw.rect(screen,(255,222,173),board[1])
+    pygame.draw.line(screen,(0,0,0),(260,165),(540,445),5)
+    pygame.draw.line(screen,(0,0,0),(260,445),(540,165),5)
+    pygame.draw.line(screen,(0,0,0),(400,165+26),(540-26,305),5)
+    pygame.draw.line(screen,(0,0,0),(400,165+26),(260+26,305),5)
+    pygame.draw.line(screen,(0,0,0),(400,445-26),(260+26,305),5)
+    pygame.draw.line(screen,(0,0,0),(400,445-26),(540-26,305),5)
     column=[pygame.Rect(260+(i+1)*52 + i*5,165,5,280) for i in range(4)]
     row=[pygame.Rect(260,165+(i+1)*52 + i*5,280,5) for i in range(4)]
     for i in range(4):
@@ -60,6 +66,12 @@ def resDisOut(win,res,length,screen):
         board=[pygame.Rect(255,160,290,290),pygame.Rect(260,165,280,280)]
         pygame.draw.rect(screen,(139,69,19),board[0])
         pygame.draw.rect(screen,(255,222,173),board[1])
+        pygame.draw.line(screen,(0,0,0),(260,165),(540,445),5)
+        pygame.draw.line(screen,(0,0,0),(260,445),(540,165),5)
+        pygame.draw.line(screen,(0,0,0),(400,165+26),(540-26,305),5)
+        pygame.draw.line(screen,(0,0,0),(400,165+26),(260+26,305),5)
+        pygame.draw.line(screen,(0,0,0),(400,445-26),(260+26,305),5)
+        pygame.draw.line(screen,(0,0,0),(400,445-26),(540-26,305),5)
         column=[pygame.Rect(260+(i+1)*52 + i*5,165,5,280) for i in range(4)]
         row=[pygame.Rect(260,165+(i+1)*52 + i*5,280,5) for i in range(4)]
         for i in range(4):
@@ -90,9 +102,18 @@ def resDisOut(win,res,length,screen):
         pygame.draw.rect(screen,(0,0,0),slideInput)
         textInput=font.render(user_text,True,(200,200,200))
         screen.blit(textInput, (slideInput.x+2, slideInput.y+2))
+        home=pygame.Rect(77,275,100,50)
+        pygame.draw.rect(screen,(255,222,173),home)
+        textHome=font.render("Quay lại",True,(0,0,0))
+        screen.blit(textHome,(82,283))
+        quit=pygame.Rect(622,275,100,50)
+        textQuit=font.render("Thoát",True,(0,0,0))
+        pygame.draw.rect(screen,(255,222,173),quit)
+        screen.blit(textQuit,(630,283))
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 running=False
+                return False
             if event.type==pygame.KEYDOWN:
                 # Check for backspace
                 if event.key==pygame.K_LEFT:
@@ -122,6 +143,12 @@ def resDisOut(win,res,length,screen):
                     active = True
                 else:
                     active = False
+                if home.collidepoint(event.pos):
+                    running=False
+                    return True
+                if quit.collidepoint(event.pos):
+                    running=False
+                    return False
         pygame.display.update()
 
 
