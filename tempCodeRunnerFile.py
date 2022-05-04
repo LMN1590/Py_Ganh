@@ -1,1 +1,2 @@
-icon = pygame.image.load("./img/logo.png")
+icon=[2,"w"]
+print(icon)

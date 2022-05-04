@@ -4,6 +4,7 @@ import random
 import demo
 import sys
 import pygame
+import playing
 
 def main():
     pygame.init() 
@@ -14,7 +15,8 @@ def main():
         icon = pygame.image.load("./img/logo.png")
         pygame.display.set_icon(icon)
         ###############
-        goFirst,level=welcome.welcome(screen)
+        goFirst,level,mode=welcome.welcome(screen)
+        print(mode)
         #If user decided to escape
         if(goFirst==-1 and level==-1):
             print("Program exited.")
@@ -43,14 +45,17 @@ def main():
                     break
             else:            #Random Agent 1
                 valid_move_temp=mm.board.get_valid_moves(mm.board.current_board, mm.board.previous_board, player)
-                for i in valid_move_temp:
-                    print("Start: "+str(i.pos_start.x)+" "+str(i.pos_start.y))
-                    print("End: "+str(i.pos_end.x)+" "+str(i.pos_end.y))
                 if(len(valid_move_temp)==0):
                     win=-1
                     break
-                index=random.randint(0,len(valid_move_temp)-1)
-                move=valid_move_temp[index]
+                if(mode==1):
+                    index=random.randint(0,len(valid_move_temp)-1)
+                    move=valid_move_temp[index]
+                elif(mode==0):
+                    a,b=playing.play(mm.board.current_board,screen,counter,valid_move_temp)
+                    if(a==-1 and b==-1):
+                        sys.exit()
+                    move=mm.Move(mm.Position(a[0],a[1]),mm.Position(b[0],b[1]))
             #Move
             mm.board.act_move(mm.board.current_board,move,player)
             mm.board.previous_board=mm.board.copy_board(previous_board)

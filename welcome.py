@@ -23,7 +23,7 @@ def welcome(screen):
     pygame.draw.rect(screen,((255,222,173)),priority)
     font=pygame.font.Font("./font/Unicode/times.ttf",25)
     textFirst=font.render("Chọn người chơi đi trước:",True,(0,0,0))
-    textRan=font.render("Agent ngẫu nhiên",True,(0,0,0))
+    textRan=font.render("Agent Random/Người",True,(0,0,0))
     textBot=font.render("Bot",True,(0,0,0))
     screen.blit(textFirst,(30,210))
     checkPos=[(350,205),(650,205)]
@@ -45,10 +45,14 @@ def welcome(screen):
     #####################
 
     #Play button
-    play=pygame.Rect(250,470,300,100)
+    human=pygame.Rect(166,470,150,70)
+    play=pygame.Rect(482,470,150,70)
+    pygame.draw.rect(screen,((50,205,50)),human)
     pygame.draw.rect(screen,((50,205,50)),play)
-    textLevel=font.render("Bắt đầu",True,(0,0,0))
-    screen.blit(textLevel,(360,505))
+    textVSHuman=font.render("VS người",True,(0,0,0))
+    screen.blit(textVSHuman,(190,487))
+    textVSRandom=font.render("VS random",True,(0,0,0))
+    screen.blit(textVSRandom,(500,487))
     #####################
     pygame.display.update()
     running = True
@@ -74,7 +78,7 @@ def welcome(screen):
                         for index in range(4):
                             if(index!=coor):
                                 level[index]=0
-                if(play.collidepoint(pos)):
+                if(play.collidepoint(pos) or human.collidepoint(pos)):
                     for i in range(2):
                         if(player[i]==1):
                             playerOut=i
@@ -89,10 +93,13 @@ def welcome(screen):
                         screen.blit(err,(30,410))
                     if(playerOut!=-1 and levelOut!=-1):
                         running=False
-                        return playerOut,levelOut
+                        if(play.collidepoint(pos)):
+                            return playerOut,levelOut,1
+                        if(human.collidepoint(pos)):
+                            return playerOut,levelOut,0
             if event.type==pygame.QUIT:
                 running=False
-                return -1,-1
+                return -1,-1,-1
             playerOut=-1
             levelOut=-1
         pygame.display.update()
