@@ -1,0 +1,131 @@
+import pygame
+
+def move(board2,screen,counter):
+    screen.fill((131,238,255))
+    
+    #####################
+    #Title
+    title=[pygame.Rect(200,40,400,100),pygame.Rect(210,50,380,80)]
+    pygame.draw.rect(screen,(139,69,19),title[0])
+    pygame.draw.rect(screen,(255,222,173),title[1])
+    fontTitle=pygame.font.Font("./font/Unicode/times.ttf",50)
+    textTitle=fontTitle.render("Bước "+str(counter),True, (0,0,0))
+    screen.blit(textTitle,(320,60))
+    #####################
+
+    #Board
+    board=[pygame.Rect(255,160,290,290),pygame.Rect(260,165,280,280)]
+    pygame.draw.rect(screen,(139,69,19),board[0])
+    pygame.draw.rect(screen,(255,222,173),board[1])
+    column=[pygame.Rect(260+(i+1)*52 + i*5,165,5,280) for i in range(4)]
+    row=[pygame.Rect(260,165+(i+1)*52 + i*5,280,5) for i in range(4)]
+    for i in range(4):
+        pygame.draw.rect(screen,(0,0,0),column[i])
+        pygame.draw.rect(screen,(0,0,0),row[i])
+    for i in range(5):
+        for j in range(5):
+            startLeft=j*57+ 4 + 260
+            startTop=i*57+ 4 + 165
+            if(board2[i][j]==1):
+                sq=pygame.Rect(startLeft,startTop,44,44)
+                pygame.draw.rect(screen,(200,0,0),sq)
+            elif (board2[i][j]==-1):
+                sq=pygame.Rect(startLeft,startTop,44,44)
+                pygame.draw.rect(screen,(0,0,200),sq)
+
+def collision(outer,inner):
+    return outer[0]<=inner[0] and outer[0]+40>=inner[0] and outer[1]<=inner[1] and outer[1]+40>=inner[1]
+
+def welcome(screen):
+    pygame.init()
+
+    #Basic visual details
+    screen.fill((131,238,255))
+    
+    #####################
+    #Title
+    title=[pygame.Rect(200,40,400,100),pygame.Rect(210,50,380,80)]
+    pygame.draw.rect(screen,(139,69,19),title[0])
+    pygame.draw.rect(screen,(255,222,173),title[1])
+    fontTitle=pygame.font.Font("./font/Unicode/times.ttf",50)
+    textTitle=fontTitle.render("Cờ gánh",True, (0,0,0))
+    screen.blit(textTitle,(320,60))
+    #####################
+    #Priority
+    priority=pygame.Rect(20,200,760,50)
+    pygame.draw.rect(screen,((255,222,173)),priority)
+    font=pygame.font.Font("./font/Unicode/times.ttf",25)
+    textFirst=font.render("Chọn người chơi đi trước:",True,(0,0,0))
+    textRan=font.render("Agent ngẫu nhiên",True,(0,0,0))
+    textBot=font.render("Bot",True,(0,0,0))
+    screen.blit(textFirst,(30,210))
+    checkPos=[(350,205),(650,205)]
+    uncheck=pygame.transform.scale(pygame.image.load("./img/uncheck.png"),(40,40))
+    checked=pygame.transform.scale(pygame.image.load("./img/check.png"),(40,40))
+    check=[uncheck,checked]
+    screen.blit(textRan,(400,210))
+    screen.blit(textBot,(700,210))
+    #####################
+    #Level
+    levelBlock=pygame.Rect(20,310,760,100)
+    pygame.draw.rect(screen,((255,222,173)),levelBlock)
+    textLevel=font.render("Chọn cấp độ chơi của Bot:",True,(0,0,0))
+    levelCoor=[(i*110+350,320) for i in range(4)]
+    screen.blit(textLevel,(30,345))
+    for i in range(4):
+        levelText=font.render(str(i+1),True,(0,0,0))
+        screen.blit(levelText,(levelCoor[i][0]+15,levelCoor[i][1]+50))
+    #####################
+
+    #Play button
+    play=pygame.Rect(250,470,300,100)
+    pygame.draw.rect(screen,((50,205,50)),play)
+    textLevel=font.render("Bắt đầu",True,(0,0,0))
+    screen.blit(textLevel,(360,505))
+    #####################
+    pygame.display.update()
+    running = True
+    player=[0,0]
+    level=[0,0,0,0]
+    playerOut=-1
+    levelOut=-1
+    while running:
+        screen.blit(check[player[0]],checkPos[0])
+        screen.blit(check[player[1]],checkPos[1])
+        for i in range(4):
+            screen.blit(check[level[i]],levelCoor[i])
+        for event in pygame.event.get():
+            if event.type==pygame.MOUSEBUTTONUP:
+                pos=pygame.mouse.get_pos()
+                for coor in range(2):
+                    if(collision(checkPos[coor],pos)):
+                        player[coor]=(player[coor]+1)%2
+                        player[(coor+1)%2]=0
+                for coor in range(4):
+                    if(collision(levelCoor[coor],pos)):
+                        level[coor]=(level[coor]+1)%2
+                        for index in range(4):
+                            if(index!=coor):
+                                level[index]=0
+                if(play.collidepoint(pos)):
+                    for i in range(2):
+                        if(player[i]==1):
+                            playerOut=i
+                    for i in range(4):
+                        if(level[i]==1):
+                            levelOut=i
+                    if(playerOut==-1):
+                        err=font.render("Chưa chọn người đi trước!!",True,(200,0,0))
+                        screen.blit(err,(30,250))
+                    if(levelOut==-1):
+                        err=font.render("Chưa chọn cấp độ!!",True,(200,0,0))
+                        screen.blit(err,(30,410))
+                    if(playerOut!=-1 and levelOut!=-1):
+                        running=False
+                        return playerOut,levelOut
+            if event.type==pygame.QUIT:
+                running=False
+                return -1,-1
+            playerOut=-1
+            levelOut=-1
+        pygame.display.update()
