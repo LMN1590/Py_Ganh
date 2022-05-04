@@ -31,14 +31,12 @@ def move(board2,screen,counter):
         pygame.draw.rect(screen,(0,0,0),row[i])
     for i in range(5):
         for j in range(5):
-            startLeft=j*57+ 4 + 260
-            startTop=i*57+ 4 + 165
+            startLeft=j*57 + 260
+            startTop=i*57 + 165
             if(board2[i][j]==1):
-                sq=pygame.Rect(startLeft,startTop,44,44)
-                pygame.draw.rect(screen,(200,0,0),sq)
+                pygame.draw.circle(screen,(200,0,0),(startLeft+26,startTop+26),22)
             elif (board2[i][j]==-1):
-                sq=pygame.Rect(startLeft,startTop,44,44)
-                pygame.draw.rect(screen,(0,0,200),sq)
+                pygame.draw.circle(screen,(0,0,200),(startLeft+26,startTop+26),22)
     pygame.display.update()
 
 
@@ -78,15 +76,13 @@ def resDisOut(win,res,length,screen):
             pygame.draw.rect(screen,(0,0,0),column[i])
             pygame.draw.rect(screen,(0,0,0),row[i])
         for i in range(5):
-            for j in range(5):
-                startLeft=j*57+ 4 + 260
-                startTop=i*57+ 4 + 165
-                if(res[counter-1][i][j]==1):
-                    sq=pygame.Rect(startLeft,startTop,44,44)
-                    pygame.draw.rect(screen,(200,0,0),sq)
-                elif (res[counter-1][i][j]==-1):
-                    sq=pygame.Rect(startLeft,startTop,44,44)
-                    pygame.draw.rect(screen,(0,0,200),sq)
+                for j in range(5):
+                    startLeft=j*57 + 260
+                    startTop=i*57 + 165
+                    if(res[counter-1][i][j]==1):
+                        pygame.draw.circle(screen,(200,0,0),(startLeft+26,startTop+26),22)
+                    elif (res[counter-1][i][j]==-1):
+                        pygame.draw.circle(screen,(0,0,200),(startLeft+26,startTop+26),22)
         if(win==0):
             textRes=font.render("Hòa",True,(220,0,0))
             screen.blit(textRes,(380,460))
