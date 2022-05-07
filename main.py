@@ -30,7 +30,7 @@ def main():
         mm.board()
         ###############
         #Current board
-        res=[mm.board.current_board]
+        res=[mm.dupTable(mm.board.current_board)]
         ###############
         counter=0
         demo.move(mm.board.current_board,screen,counter)
