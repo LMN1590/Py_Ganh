@@ -82,7 +82,7 @@ def resDisOut(win,res,length,screen):
         if(win==0):
             textRes=font.render("Hòa",True,(220,0,0))
             screen.blit(textRes,(380,460))
-        elif(win==-1):
+        elif(win==1):
             textRes=font.render("Agent Random / Người chơi thắng",True,(220,0,0))
             screen.blit(textRes,(220,460))
         else:
