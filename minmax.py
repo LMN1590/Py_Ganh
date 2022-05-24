@@ -32,6 +32,7 @@ class board:
                 for j in range(5): board.current_board[i][j]=-1
         board.current_board[1][0], board.current_board[1][4], board.current_board[2][0] = 1, 1, 1
         board.current_board[2][4], board.current_board[3][0], board.current_board[3][4] = -1, -1, -1
+        board.previous_board=[[]]
     @staticmethod
 
     def copy_board(current_board):
