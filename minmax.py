@@ -1,5 +1,15 @@
 from select import select
+import random
 
+def encode(table):
+    # 1 --> 2
+    # 0 --> 1
+    # -1 --> 0
+    result=0
+    for i in range(5):
+        for j in range(5):
+            result+=(table[i][j]+1)* (3**(i*5+j))
+    return result
 
 def dupTable(base):
     newer=[]
@@ -267,3 +277,23 @@ class minimax:
                     for j in range(5):
                         if (current_board[i][j]==1): self.point+=1
                         if (current_board[i][j]==-1): self.point-=1
+
+def chooseMove(listMove,curTable,dict):
+    bestVal=0
+    bestMove=0
+    for i in listMove:
+        newTable=dupTable(curTable)
+        newTable[i.pos_start.x][i.pos_start.y]=0
+        newTable[i.pos_end.x][i.pos_end.y]=-1
+        val=encode(newTable)
+        if val in dict.keys():
+            val=dict[val]
+        else:
+            val=0
+        if(val>bestVal):
+            bestVal=val
+            bestMove=i
+        if(val==bestVal):
+            if (bestVal==0 or random.random()>0.5):
+                bestMove=i
+    return bestMove
