@@ -23,7 +23,7 @@ def main():
         icon = pygame.image.load("./img/logo.png")
         pygame.display.set_icon(icon)
         ###############
-        goFirst,level,mode=welcome.welcome(screen)
+        goFirst,level,mode=welcome.welcome2(screen)
         print(mode)
         #If user decided to escape
         if(goFirst==-1 and level==-1):
