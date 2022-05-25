@@ -278,7 +278,7 @@ class minimax:
                         if (current_board[i][j]==1): self.point+=1
                         if (current_board[i][j]==-1): self.point-=1
 
-def chooseMove(listMove,curTable,dict):
+def chooseMove(listMove,curTable,dict,first):
     bestVal=0
     bestMove=0
     for i in listMove:
@@ -290,10 +290,11 @@ def chooseMove(listMove,curTable,dict):
             val=dict[val]
         else:
             val=0
-        if(val>bestVal):
+        if((val>bestVal and first==-1) or (val<bestVal and first==1) or (bestMove==0)):
             bestVal=val
             bestMove=i
         if(val==bestVal):
-            if (bestVal==0 or random.random()>0.5):
+            if (random.random()>0.5):
                 bestMove=i
+                
     return bestMove

@@ -31,10 +31,15 @@ def main():
             sys.exit()
         ###############
         #Who get to go first
-        if (goFirst==1): player=-1 
-        else: player=1 
+        if (goFirst==1): 
+            player=-1 
+            first=-1
+        else: 
+            player=1 
+            first=1
         ###############
         #Setting up board
+        print(goFirst)
         mm.board()
         ###############
         #Current board
@@ -50,7 +55,7 @@ def main():
                 if(len(valid_move_temp)==0):
                     win=1
                     break
-                move=mm.chooseMove(valid_move_temp,mm.board.current_board,dict)
+                move=mm.chooseMove(valid_move_temp,mm.board.current_board,dict,first)
 
             else:            #Random Agent 1
                 valid_move_temp=mm.board.get_valid_moves(mm.board.current_board, mm.board.previous_board, player)
